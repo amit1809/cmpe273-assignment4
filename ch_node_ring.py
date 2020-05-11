@@ -41,3 +41,22 @@ class ChNodeRing():
             return self.nodes_map[self.hnodes[0]]
         else:
             return self.nodes_map[self.hnodes[pos]]
+
+    # returns main node and 2 next nodes for data replication
+    def get_node_with_replication(self, key):
+        pos = bisect(self.hnodes, self.hash(key)) #Find position of key in sorted hash ring using bisect
+        if pos == len(self.hnodes):
+            return self.nodes_map[self.hnodes[0]], self.nodes_map[self.hnodes[1]], self.nodes_map[self.hnodes[2]]
+        else:
+            main_node = self.nodes_map[self.hnodes[pos]]
+            if pos+1 == len(self.hnodes):
+                node_2 = self.nodes_map[self.hnodes[0]]
+                node_3 = self.nodes_map[self.hnodes[1]]
+            elif pos+2 == len(self.hnodes):
+                node_2 = self.nodes_map[self.hnodes[pos+1]]
+                node_3 = self.nodes_map[self.hnodes[0]]
+            else:
+                node_2 = self.nodes_map[self.hnodes[pos + 1]]
+                node_3 = self.nodes_map[self.hnodes[pos + 2]]
+            return main_node, node_2, node_3
+
