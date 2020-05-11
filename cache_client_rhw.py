@@ -3,7 +3,7 @@ import ast
 from sample_data import USERS
 from server_config import NODES
 from pickle_hash import serialize_GET, serialize_PUT, deserialize, serialize_DELETE
-from rendezvous_hashing import RhwNodeRing
+from rhw_node_ring import RhwNodeRing
 
 BUFFER_SIZE = 1024
 
